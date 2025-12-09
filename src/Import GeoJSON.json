@@ -1,0 +1,26 @@
+// Dans votre composant principal
+import GeoJSONImporter from "./modules/import/GeoJSONImporter";
+
+function MonComposantPrincipal() {
+  const [map, setMap] = useState(null);
+  
+  const handleLayerImport = (importedLayer) => {
+    console.log("Couche importée avec succès :", importedLayer);
+    // Vous pouvez maintenant :
+    // - Stocker la référence
+    // - Modifier le style
+    // - Ajouter à un gestionnaire de couches
+    // - Afficher des informations, etc.
+  };
+  
+  return (
+    <div>
+      {/* Votre carte OpenLayers ici */}
+      
+      <GeoJSONImporter 
+        map={map}
+        onImportComplete={handleLayerImport}
+      />
+    </div>
+  );
+}
