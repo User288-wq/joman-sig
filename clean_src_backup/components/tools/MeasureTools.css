@@ -1,0 +1,67 @@
+﻿.measure-tools {
+  padding: 15px;
+}
+
+.measure-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.measure-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.measure-mode {
+  background: #007bff;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.tool-selection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.measure-tool {
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.measure-tool:hover {
+  border-color: #007bff;
+}
+
+.measure-tool.active {
+  border-color: #007bff;
+  background: #e7f1ff;
+}
+
+.tool-icon {
+  font-size: 2rem;
+}
+
+.tool-name {
+  font-weight: 500;
+}
+
+.tool-instructions {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 0.9rem;
+}

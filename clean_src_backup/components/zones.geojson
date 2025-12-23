@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "name": "zones",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Zone A",
+        "usage": "résidentiel"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-17.50, 14.65],
+          [-17.40, 14.65],
+          [-17.40, 14.73],
+          [-17.50, 14.73],
+          [-17.50, 14.65]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Zone B",
+        "usage": "industriel"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-16.95, 14.75],
+          [-16.88, 14.75],
+          [-16.88, 14.82],
+          [-16.95, 14.82],
+          [-16.95, 14.75]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Zone C",
+        "usage": "agricole"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-16.60, 15.95],
+          [-16.45, 15.95],
+          [-16.45, 16.07],
+          [-16.60, 16.07],
+          [-16.60, 15.95]
+        ]]
+      }
+    }
+  ]
+}

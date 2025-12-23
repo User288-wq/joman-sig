@@ -1,0 +1,5 @@
+﻿{
+  "rules": {
+    "unicode-bom": "off"
+  }
+}

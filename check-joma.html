@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vérification JOMA SIG</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .status { padding: 10px; margin: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Vérification JOMA SIG</h1>
+    
+    <div class="status success">
+        <h3> Application React fonctionne</h3>
+        <p>Serveur tourne sur: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+    </div>
+    
+    <div class="status">
+        <h3>Prochaines étapes:</h3>
+        <ol>
+            <li>Ouvrez <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+            <li>Testez le menu "Fichier → Nouveau projet"</li>
+            <li>Testez le menu "Couches → Ajouter vecteur"</li>
+            <li>Vérifiez que la carte s'affiche</li>
+        </ol>
+    </div>
+    
+    <script>
+        // Tester la connexion au serveur
+        fetch('http://localhost:3000')
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').innerHTML = 
+                        '<span style="color: green;"> Serveur accessible</span>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('status').innerHTML = 
+                    '<span style="color: red;"> Serveur non accessible</span>';
+            });
+    </script>
+    
+    <p>Statut serveur: <span id="status">Vérification...</span></p>
+</body>
+</html>

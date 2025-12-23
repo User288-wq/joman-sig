@@ -1,0 +1,294 @@
+﻿.geojson-importer {
+  padding: 15px;
+}
+
+.importer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.importer-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.import-methods {
+  display: flex;
+  gap: 10px;
+}
+
+.method-btn {
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.method-btn:hover {
+  background: #f8f9fa;
+}
+
+.method-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.drop-zone {
+  border: 2px dashed #adb5bd;
+  border-radius: 10px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+  margin-bottom: 20px;
+}
+
+.drop-zone:hover {
+  border-color: #007bff;
+  background: #e7f1ff;
+}
+
+.drop-zone.dragging {
+  border-color: #28a745;
+  background: #d4edda;
+  transform: scale(1.02);
+}
+
+.drop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.drop-icon {
+  font-size: 3rem;
+  color: #6c757d;
+}
+
+.drop-text {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #495057;
+}
+
+.drop-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.url-import {
+  margin-bottom: 20px;
+}
+
+.url-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.url-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.url-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+.btn-fetch {
+  padding: 12px 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-fetch:hover:not(:disabled) {
+  background: #218838;
+}
+
+.btn-fetch:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.url-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #856404;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.imported-files {
+  margin-bottom: 20px;
+}
+
+.imported-files h4 {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.files-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: white;
+}
+
+.file-info {
+  flex: 1;
+}
+
+.file-name {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.file-details {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-preview, .btn-remove {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-preview {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-preview:hover {
+  background: #138496;
+}
+
+.btn-remove {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-remove:hover {
+  background: #c82333;
+}
+
+.importer-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-clear-all, .btn-export-list {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-clear-all {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-clear-all:hover {
+  background: #c82333;
+}
+
+.btn-export-list {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-export-list:hover {
+  background: #5a6268;
+}
+
+.import-info {
+  background: #e7f1ff;
+  border: 1px solid #b3d4ff;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 0.9rem;
+}
+
+.import-info p {
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.import-info ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.import-info li {
+  margin-bottom: 4px;
+}

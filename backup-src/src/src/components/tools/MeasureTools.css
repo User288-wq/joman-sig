@@ -1,0 +1,186 @@
+﻿.measure-tools {
+  padding: 15px;
+}
+
+.measure-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.measure-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.measure-mode {
+  background: #007bff;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.tool-selection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.measure-tool {
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.measure-tool:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.measure-tool.active {
+  border-color: #007bff;
+  background: #e7f1ff;
+}
+
+.tool-icon {
+  font-size: 2rem;
+}
+
+.tool-name {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.unit-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.unit-selector label {
+  font-weight: 500;
+}
+
+.unit-selector select {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.tool-instructions {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #856404;
+}
+
+.measurements-list {
+  margin-bottom: 20px;
+}
+
+.measurements-list h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.measurement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background: white;
+}
+
+.measurement-type {
+  font-weight: 500;
+  color: #007bff;
+}
+
+.measurement-value {
+  font-family: monospace;
+  color: #28a745;
+}
+
+.btn-remove-measurement {
+  background: transparent;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.btn-remove-measurement:hover {
+  background: rgba(220,53,69,0.1);
+}
+
+.no-measurements {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.measure-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-export-measurements, .btn-save-measurements {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-export-measurements {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-export-measurements:hover {
+  background: #138496;
+}
+
+.btn-save-measurements {
+  background: #28a745;
+  color: white;
+}
+
+.btn-save-measurements:hover {
+  background: #218838;
+}

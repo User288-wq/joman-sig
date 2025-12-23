@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "France" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.2137, 46.2276]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Senegal" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-14.4524, 14.4974]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "USA" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-95.7129, 37.0902]
+      }
+    }
+  ]
+}

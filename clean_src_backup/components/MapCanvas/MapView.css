@@ -1,0 +1,53 @@
+/* src/components/MapView.css */
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ol-map {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+}
+
+/* Contrôles OpenLayers */
+.ol-control {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.ol-control button {
+  display: block;
+  margin: 1px;
+  padding: 0;
+  color: white;
+  font-size: 1.14em;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  height: 1.375em;
+  width: 1.375em;
+  line-height: .4em;
+  background-color: #3498db;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.ol-control button:hover {
+  background-color: #2980b9;
+}
+
+.ol-attribution {
+  font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .map-container {
+    height: calc(100vh - 150px);
+  }
+}

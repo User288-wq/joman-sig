@@ -1,0 +1,73 @@
+﻿/* Styles pour OpenLayers */
+.ol-map {
+  width: 100%;
+  height: 100%;
+}
+
+.ol-control {
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.ol-control button {
+  display: block;
+  margin: 1px;
+  padding: 0;
+  color: white;
+  font-size: 1.14em;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  height: 1.375em;
+  width: 1.375em;
+  line-height: .4em;
+  background-color: #007cbf;
+  border: none;
+  border-radius: 2px;
+}
+
+.ol-control button:hover {
+  background-color: #009ee0;
+}
+
+.ol-scale-line {
+  background: rgba(0,60,136,0.5);
+  border-radius: 4px;
+  bottom: 8px;
+  left: 8px;
+  padding: 2px;
+  position: absolute;
+}
+
+.ol-scale-line-inner {
+  border: 1px solid #eee;
+  border-top: none;
+  color: #eee;
+  font-size: 10px;
+  text-align: center;
+  margin: 1px;
+  will-change: contents, width;
+}
+
+/* Styles pour Joman SIG */
+.map-tooltip {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  font-size: 12px;
+  max-width: 250px;
+}
+
+.map-controls {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.map-controls > * {
+  pointer-events: auto;
+}

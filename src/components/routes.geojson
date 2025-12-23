@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "name": "routes",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Route Dakar - Thiès",
+        "type": "autoroute"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-17.4467, 14.6937],
+          [-16.92, 14.79]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Route Thiès - Saint-Louis",
+        "type": "nationale"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-16.92, 14.79],
+          [-16.4859, 16.0179]
+        ]
+      }
+    }
+  ]
+}

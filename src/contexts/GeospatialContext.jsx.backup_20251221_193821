@@ -1,0 +1,115 @@
+﻿import React, { createContext, useContext } from 'react';
+
+const GeospatialContext = createContext();
+
+export const GeospatialProvider = ({ children }) => {
+  // Fonctions de conversion de base
+  const convertGeoJSONToWKT = (geojson) => {
+    try {
+      if (!geojson || !geojson.type) {
+        throw new Error('GeoJSON invalide');
+      }
+
+      switch (geojson.type) {
+        case 'Point':
+          const [lon, lat] = geojson.coordinates;
+          return `POINT (${lon} ${lat})`;
+        
+        case 'LineString':
+          const points = geojson.coordinates.map(coord => `${coord[0]} ${coord[1]}`).join(', ');
+          return `LINESTRING (${points})`;
+        
+        default:
+          return `GEOMETRY (${geojson.type})`;
+      }
+    } catch (error) {
+      throw new Error(`Erreur de conversion: ${error.message}`);
+    }
+  };
+
+  const convertWKTToGeoJSON = (wkt) => {
+    try {
+      if (!wkt) throw new Error('WKT vide');
+      
+      // Parsing simple
+      const typeMatch = wkt.match(/^([A-Z]+)\s*\(/);
+      if (!typeMatch) throw new Error('Format WKT non reconnu');
+      
+      const type = typeMatch[1];
+      const coordsText = wkt.substring(type.length).replace(/[()]/g, '').trim();
+      
+      if (type === 'POINT') {
+        const coords = coordsText.split(/\s+/).map(Number);
+        return {
+          type: 'Point',
+          coordinates: coords
+        };
+      }
+      
+      throw new Error(`Type ${type} non supporté`);
+    } catch (error) {
+      throw new Error(`Erreur de conversion: ${error.message}`);
+    }
+  };
+
+  // Calcul de distance (Haversine)
+  const calculateDistance = (point1, point2, unit = 'km') => {
+    try {
+      const [lon1, lat1] = Array.isArray(point1) ? point1 : [point1.lon || point1.lng, point1.lat];
+      const [lon2, lat2] = Array.isArray(point2) ? point2 : [point2.lon || point2.lng, point2.lat];
+
+      const R = 6371; // Rayon Terre en km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      let distance = R * c;
+
+      switch (unit) {
+        case 'm': distance *= 1000; break;
+        case 'miles': distance *= 0.621371; break;
+      }
+
+      return distance;
+    } catch (error) {
+      throw new Error(`Erreur de calcul: ${error.message}`);
+    }
+  };
+
+  const value = {
+    convertGeoJSONToWKT,
+    convertWKTToGeoJSON,
+    calculateDistance,
+    // Placeholder pour fonctionnalités avancées
+    networkAnalysis: {
+      createNetwork: () => ({ message: 'À implémenter' }),
+      shortestPath: () => ({ message: 'À implémenter' })
+    },
+    spatialInterpolation: {
+      idw: () => ({ message: 'À implémenter' })
+    },
+    rasterProcessing: {
+      calculateNDVI: () => ({ message: 'À implémenter' })
+    },
+    cartographicGeneralization: {
+      simplify: () => ({ message: 'À implémenter' })
+    }
+  };
+
+  return (
+    <GeospatialContext.Provider value={value}>
+      {children}
+    </GeospatialContext.Provider>
+  );
+};
+
+export const useGeospatial = () => {
+  const context = useContext(GeospatialContext);
+  if (!context) {
+    throw new Error('useGeospatial doit être utilisé dans GeospatialProvider');
+  }
+  return context;
+};

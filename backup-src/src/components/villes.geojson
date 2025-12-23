@@ -1,0 +1,39 @@
+{
+  "type": "FeatureCollection",
+  "name": "villes",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Dakar",
+        "population": 1146053
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-17.4467, 14.6937]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Thiès",
+        "population": 320000
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-16.92, 14.79]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Saint-Louis",
+        "population": 200000
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-16.4859, 16.0179]
+      }
+    }
+  ]
+}

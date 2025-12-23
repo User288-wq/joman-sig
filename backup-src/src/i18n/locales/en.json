@@ -1,0 +1,34 @@
+﻿{
+  "menu": {
+    "project": "Project",
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "layers": "Layers",
+    "analysis": "Analysis",
+    "processing": "Processing",
+    "vector": "Vector",
+    "raster": "Raster",
+    "database": "Database",
+    "web": "Web Services",
+    "settings": "Settings",
+    "help": "Help"
+  },
+  "status": {
+    "draft": "Draft",
+    "active": "Active",
+    "saved": "Saved",
+    "error": "Error",
+    "scale": "Scale"
+  },
+  "file": {
+    "title": " JOMA File Management",
+    "projectManagement": "Project Management",
+    "importExport": "Import/Export",
+    "newProject": "New Project",
+    "openProject": "Open Project..."
+  },
+  "language": {
+    "select": "Select Language"
+  }
+}

@@ -1,0 +1,67 @@
+﻿// src/components/MapView.js - VERSION CORRIGÉE
+import React, { useEffect, useRef } from "react";
+import "ol/ol.css";
+import Map from "ol/Map";
+import View from "ol/View";
+import { fromLonLat } from "ol/proj";
+
+// Layers
+import { osmLayer } from "../layers/baseLayers";
+import { 
+  roadsLayer, 
+  villagesLayer, 
+  waterLayer, 
+  forestLayer, 
+  buildingsLayer 
+} from "../layers/vectorLayers";
+
+// Components
+import NavigationTools from "./NavigationTools";
+import "./MapView.css";
+
+export default function MapView({ activeLayers }) {
+  const mapRef = useRef();
+  const mapObject = useRef();
+
+  useEffect(() => {
+    mapObject.current = new Map({
+      target: mapRef.current,
+      layers: [
+        osmLayer, 
+        roadsLayer, 
+        villagesLayer, 
+        waterLayer, 
+        forestLayer, 
+        buildingsLayer
+      ],
+      view: new View({
+        center: fromLonLat([-17.45, 14.69]), // Dakar
+        zoom: 12,
+      }),
+    });
+
+    return () => {
+      if (mapObject.current) {
+        mapObject.current.setTarget(null);
+      }
+    };
+  }, []);
+
+  // Mise à jour des couches quand on coche/décoche
+  useEffect(() => {
+    if (!mapObject.current) return;
+
+    roadsLayer.setVisible(activeLayers.roads);
+    villagesLayer.setVisible(activeLayers.villages);
+    waterLayer.setVisible(activeLayers.water);
+    forestLayer.setVisible(activeLayers.forest);
+    buildingsLayer.setVisible(activeLayers.buildings);
+  }, [activeLayers]);
+
+  return (
+    <div className="map-container">
+      <div ref={mapRef} className="ol-map" />
+      <NavigationTools map={mapObject.current} />
+    </div>
+  );
+}

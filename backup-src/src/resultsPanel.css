@@ -1,0 +1,15 @@
+.joman-results-panel {
+  padding: 6px;
+  font-size: 13px;
+  color: #fff;
+  background: rgba(30, 30, 30, 0.9);
+  overflow-y: auto;
+  height: 100%;
+}
+.joman-result-msg {
+  margin-bottom: 4px;
+  padding: 4px 6px;
+  border-left: 3px solid #3399CC;
+  background: rgba(50, 50, 50, 0.7);
+  border-radius: 4px;
+}

@@ -1,0 +1,28 @@
+.menu-bar {
+  background: #2c3e50;
+  color: white;
+  padding: 0 20px;
+  display: flex;
+  height: 45px;
+  align-items: center;
+  border-bottom: 2px solid #1a252f;
+}
+
+.menu-item {
+  background: transparent;
+  border: none;
+  color: #ecf0f1;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  border-right: 1px solid #3a506b;
+}
+
+.menu-item:hover {
+  background-color: #3498db;
+}
+
+.menu-item.active {
+  background-color: #2980b9;
+  font-weight: bold;
+}

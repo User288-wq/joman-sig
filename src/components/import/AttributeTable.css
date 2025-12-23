@@ -1,0 +1,56 @@
+﻿.attribute-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.table-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  background: #f8f9fa;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.data-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.data-table tbody tr.selected {
+  background: #e7f1ff;
+}

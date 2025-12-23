@@ -1,0 +1,8 @@
+﻿.main-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #eee;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}

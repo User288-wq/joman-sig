@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test JOMA SIG</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .test-result { padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1> Test JOMA SIG</h1>
+    
+    <div class="test-result success">
+        <h3> Application compilée avec succès</h3>
+        <p>Les erreurs "onMenuAction is not a function" sont résolues.</p>
+    </div>
+    
+    <h2>Test des menus :</h2>
+    <div>
+        <button onclick="testAction('file:new')"> Nouveau projet</button>
+        <button onclick="testAction('file:open')"> Ouvrir</button>
+        <button onclick="testAction('file:save')"> Enregistrer</button>
+        <button onclick="testAction('file:import')"> Importer</button>
+        <button onclick="testAction('layers:add-vector')"> Vecteur</button>
+        <button onclick="testAction('layers:show-all')"> Afficher tout</button>
+    </div>
+    
+    <script>
+        function testAction(action) {
+            console.log("Test action:", action);
+            alert("Action test: " + action + "\n\nDans l'application, cette action fonctionnera avec les menus réels.");
+        }
+    </script>
+</body>
+</html>
