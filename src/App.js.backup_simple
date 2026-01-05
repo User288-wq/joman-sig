@@ -1,0 +1,66 @@
+﻿import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [message, setMessage] = useState("JOMA SIG fonctionne !");
+  
+  const handleMenuClick = (action) => {
+    alert(`Menu cliqué: ${action}`);
+    console.log(" Action:", action);
+  };
+  
+  return (
+    <div className="App" style={{ padding: "20px" }}>
+      <h1> JOMA SIG - Version de test</h1>
+      
+      <div style={{ 
+        backgroundColor: "#f0f2f5", 
+        padding: "20px", 
+        borderRadius: "8px",
+        marginTop: "20px"
+      }}>
+        <h2> Menus de test</h2>
+        
+        <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+          <button onClick={() => handleMenuClick("file:new")} style={buttonStyle}>
+            📁 Nouveau projet
+          </button>
+          <button onClick={() => handleMenuClick("file:import")} style={buttonStyle}>
+             Importer GeoJSON
+          </button>
+          <button onClick={() => handleMenuClick("process:buffer")} style={buttonStyle}>
+             Buffer
+          </button>
+        </div>
+        
+        <div style={{ 
+          backgroundColor: "white", 
+          padding: "15px", 
+          borderRadius: "5px",
+          border: "1px solid #ddd"
+        }}>
+          <h3> Statut</h3>
+          <p>Message: {message}</p>
+          <p>Turf.js installé: </p>
+          <p>React fonctionnel: </p>
+        </div>
+      </div>
+      
+      <div style={{ marginTop: "30px", color: "#666", fontSize: "14px" }}>
+        <p>Prochaine étape: Charger la carte OpenLayers et les composants un par un</p>
+      </div>
+    </div>
+  );
+}
+
+const buttonStyle = {
+  padding: "10px 15px",
+  backgroundColor: "#0078D4",
+  color: "white",
+  border: "none",
+  borderRadius: "4px",
+  cursor: "pointer",
+  fontSize: "14px"
+};
+
+export default App;

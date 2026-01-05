@@ -1,0 +1,70 @@
+﻿{
+  "name": "jomasig-pro",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Système d'Information Géographique Professionnel avec React & OpenLayers",
+  "keywords": ["SIG", "GIS", "OpenLayers", "React", "Cartographie", "GeoJSON"],
+  "author": "JOMA SIG Team",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "ol": "^8.1.0",
+    "proj4": "^2.10.0",
+    "@turf/turf": "^6.5.0",
+    "axios": "^1.6.2",
+    "bootstrap": "^5.3.2",
+    "react-bootstrap": "^2.9.0",
+    "@mui/material": "^5.14.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "react-icons": "^4.12.0",
+    "jsts": "^2.9.0",
+    "shapefile": "^0.6.6",
+    "@tmcw/togeojson": "^5.0.0",
+    "xml2js": "^0.6.2",
+    "jszip": "^3.10.1",
+    "geotiff": "^2.0.7",
+    "papaparse": "^5.4.1",
+    "topojson-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/ol": "^8.0.0",
+    "@types/proj4": "^2.5.5",
+    "@types/topojson-client": "^3.1.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css}\"",
+    "dev": "npm run start",
+    "prod": "npm run build && serve -s build",
+    "install-deps": "npm install --legacy-peer-deps",
+    "clean": "rm -rf node_modules package-lock.json && npm cache clean --force"
+  },
+  "eslintConfig": {
+    "extends": ["react-app"]
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  },
+  "proxy": "http://localhost:5000",
+  "homepage": ".",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

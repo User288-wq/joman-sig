@@ -1,0 +1,544 @@
+﻿import React, { useState, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import "./App.css";
+import "./i18n";
+
+import { MapProvider, useMap } from "./contexts/MapContext";
+import { LayerProvider } from "./contexts/LayerContext";
+import { GeospatialProvider } from "./contexts/GeospatialContext";
+import ErrorBoundary from "./components/error/ErrorBoundary";
+
+// Composants UI
+import JomaMenuBar from "./components/ui/JomaMenuBar";
+import LayersPanel from "./components/layers/LayersPanel";
+import ProfessionalToolbar from "./components/tools/ProfessionalToolbar";
+import MeasureTools from "./components/tools/MeasureTools";
+import GeoJSONImporter from "./components/import/GeoJSONImporter";
+import AttributeTable from "./components/import/AttributeTable";
+import StatusBar from "./components/ui/StatusBar";
+
+// Composants de carte
+import Map2D from "./components/map/Map2D";
+import CesiumMap from "./components/map/CesiumMap";
+import CanvasMap from "./components/map/CanvasMap";
+
+// Hook personnalisé pour la gestion des couches
+const useLayerManager = () => {
+  const [activeLayers, setActiveLayers] = useState({
+    baseMap: true,
+    roads: true,
+    buildings: false,
+    poi: true,
+  });
+  
+  const toggleLayer = useCallback((layerName) => {
+    setActiveLayers(prev => ({
+      ...prev,
+      [layerName]: !prev[layerName],
+    }));
+  }, []);
+  
+  return { activeLayers, toggleLayer };
+};
+
+// Composant principal du contenu de l'application
+const AppContent = () => {
+  const { t } = useTranslation();
+  
+  // ==============================
+  // FONCTION PRINCIPALE DES ACTIONS
+  // ==============================
+  const handleMenuAction = (action) => {
+    console.log(" Action menu:", action);
+    
+    const actionParts = action.split(':');
+    const mainAction = actionParts[0];
+    const subAction = actionParts[1];
+    const details = actionParts[2];
+
+    switch(mainAction) {
+      case "file":
+        handleFileActions(subAction, details);
+        break;
+      case "project":
+        handleProjectActions(subAction, details);
+        break;
+      case "edit":
+        handleEditActions(subAction, details);
+        break;
+      case "view":
+        handleViewActions(subAction, details);
+        break;
+      case "layers":
+        handleLayerActions(subAction, details);
+        break;
+      case "process":
+        handleProcessingActions(subAction, details);
+        break;
+      case "database":
+        handleDatabaseActions(subAction, details);
+        break;
+      case "import":
+        handleImportActions(subAction, details);
+        break;
+      case "export":
+        handleExportActions(subAction, details);
+        break;
+      case "analysis":
+        handleAnalysisActions(subAction, details);
+        break;
+      case "web":
+        handleWebActions(subAction, details);
+        break;
+      case "help":
+        handleHelpActions(subAction, details);
+        break;
+      case "settings":
+        handleSettingsActions(subAction, details);
+        break;
+      default:
+        console.log("Action non implémentée:", action);
+    }
+  };
+  
+  // États principaux
+  const [activeTab, setActiveTab] = useState(null);
+  const [mapViewMode, setMapViewMode] = useState("2D");
+  const [activeWidget, setActiveWidget] = useState(null);
+  const [activeTool, setActiveTool] = useState("pan");
+  const [projectName, setProjectName] = useState(t("project.untitled"));
+  const [projectStatus, setProjectStatus] = useState("draft");
+  const [baseMapType, setBaseMapType] = useState("osm");
+  const [showGrid, setShowGrid] = useState(false);
+  const [showScale, setShowScale] = useState(true);
+  const [networkData, setNetworkData] = useState(null);
+  const [rasterData, setRasterData] = useState(null);
+  const [currentOperation, setCurrentOperation] = useState(null);
+  const [processingHistory, setProcessingHistory] = useState([]);
+  const [selectedLayers, setSelectedLayers] = useState([]);
+  const [drawingMode, setDrawingMode] = useState(null);
+
+  const { activeLayers: managedLayers, toggleLayer } = useLayerManager();
+  const { mapInstance } = useMap();
+
+  // ==============================
+  // IMPORT DES FONCTIONS DE TRAITEMENT TURF.JS
+  // ==============================
+  
+  // Note : Ces fonctions doivent exister dans src/utils/processingActions.js
+  const handleBufferOperation = (selectedLayers, distance) => {
+    console.log(" Buffer operation called", { selectedLayers, distance });
+    
+    // Simulation en attendant l'import réel
+    return {
+      success: true,
+      features: [{
+        type: "Feature",
+        geometry: {
+          type: "Polygon",
+          coordinates: [[
+            [2.3522, 48.8566], [2.3622, 48.8566],
+            [2.3622, 48.8666], [2.3522, 48.8666],
+            [2.3522, 48.8566]
+          ]]
+        },
+        properties: { operation: "buffer", distance: distance }
+      }],
+      message: `Buffer de ${distance}m créé avec succès`
+    };
+  };
+
+  const handleUnionOperation = (selectedLayers) => {
+    console.log(" Union operation called", { selectedLayers });
+    return {
+      success: true,
+      features: [],
+      message: "Union réalisée avec succès"
+    };
+  };
+
+  const handleIntersectionOperation = (selectedLayers) => {
+    console.log("🔄 Intersection operation called", { selectedLayers });
+    return {
+      success: true,
+      features: [],
+      message: "Intersection calculée avec succès"
+    };
+  };
+
+  // ==============================
+  // FONCTIONS DE GESTION PAR CATÉGORIE
+  // ==============================
+
+  // 1. GESTION DES FICHIERS
+  const handleFileActions = (action, details) => {
+    console.log("📁 File action:", action, details);
+    
+    switch(action) {
+      case 'new':
+        const name = prompt("Nom du projet:", "Nouveau projet");
+        if (name) {
+          setProjectName(name);
+          setProjectStatus("draft");
+          alert(`Projet "${name}" créé`);
+        }
+        break;
+      case 'open':
+        alert("Ouvrir un projet...");
+        break;
+      case 'save':
+        setProjectStatus("saved");
+        alert("Projet enregistré");
+        break;
+      case 'save-as':
+        const newName = prompt("Nouveau nom:", projectName);
+        if (newName) {
+          setProjectName(newName);
+          setProjectStatus("saved");
+          alert(`Enregistré sous "${newName}"`);
+        }
+        break;
+      case 'import':
+        setActiveWidget("import");
+        alert("Importer des données - widget import activé");
+        break;
+      case 'export-geojson':
+        alert("Exporter en GeoJSON");
+        break;
+      case 'quit':
+        if (confirm("Quitter JOMA SIG ?")) {
+          alert("À bientôt !");
+        }
+        break;
+      default:
+        console.log("Action fichier non gérée:", action);
+    }
+  };
+
+  // 2. GESTION DES PROJETS
+  const handleProjectActions = (action, details) => {
+    switch(action) {
+      case 'new':
+        handleFileActions('new', details);
+        break;
+      case 'open':
+        handleFileActions('open', details);
+        break;
+      case 'save':
+        handleFileActions('save', details);
+        break;
+      case 'save-as':
+        handleFileActions('save-as', details);
+        break;
+      default:
+        console.log("Action projet non gérée:", action);
+    }
+  };
+
+  // 3. ÉDITION
+  const handleEditActions = (action, details) => {
+    switch(action) {
+      case 'undo':
+        alert("Annuler");
+        break;
+      case 'redo':
+        alert("Rétablir");
+        break;
+      default:
+        console.log("Action édition non gérée:", action);
+    }
+  };
+
+  // 4. VUE
+  const handleViewActions = (action, details) => {
+    switch(action) {
+      case 'zoom-in':
+        if (mapInstance) {
+          const view = mapInstance.getView();
+          view.setZoom(view.getZoom() + 1);
+          console.log("🔍 Zoom in - nouveau niveau:", view.getZoom());
+        }
+        break;
+      case 'zoom-out':
+        if (mapInstance) {
+          const view = mapInstance.getView();
+          view.setZoom(view.getZoom() - 1);
+          console.log(" Zoom out - nouveau niveau:", view.getZoom());
+        }
+        break;
+      case 'mode-2d':
+        setMapViewMode("2D");
+        console.log(" Mode 2D activé");
+        break;
+      case 'mode-3d':
+        setMapViewMode("3D");
+        console.log(" Mode 3D activé");
+        break;
+      case 'basemap-osm':
+        setBaseMapType('osm');
+        console.log(" Carte OSM activée");
+        break;
+      default:
+        console.log("Action vue non gérée:", action);
+    }
+  };
+
+  // 5. COUCHES
+  const handleLayerActions = (action, details) => {
+    switch(action) {
+      case 'add-vector':
+        setActiveWidget("import");
+        console.log("➕ Ajouter couche vecteur");
+        break;
+      case 'add-raster':
+        console.log(" Ajouter couche raster");
+        break;
+      case 'show-all':
+        console.log(" Afficher toutes les couches");
+        break;
+      case 'hide-all':
+        console.log(" Masquer toutes les couches");
+        break;
+      case 'style':
+        console.log(" Modifier le style");
+        break;
+      default:
+        console.log("Action couche non gérée:", action);
+    }
+  };
+
+  // 6. TRAITEMENTS - FONCTION CRITIQUE
+  const handleProcessingActions = (action, details) => {
+    console.log("🚀 Traitement appelé:", action, details);
+    
+    switch(action) {
+      case 'buffer':
+        // Vérifier si des couches sont sélectionnées
+        if (!selectedLayers || selectedLayers.length === 0) {
+          alert("⚠️ Sélectionnez d'abord une couche dans le panneau des couches");
+          console.log("❌ Aucune couche sélectionnée pour buffer");
+          return;
+        }
+        
+        const distance = prompt(" Distance du buffer (mètres):", "100");
+        if (!distance) return;
+        
+        const distanceNum = parseFloat(distance);
+        if (isNaN(distanceNum) || distanceNum <= 0) {
+          alert(" Distance invalide");
+          return;
+        }
+
+        console.log(" Calcul du buffer avec Turf.js...");
+        
+        // Appeler la fonction Turf.js
+        const result = handleBufferOperation(selectedLayers, distanceNum);
+        
+        if (result.success) {
+          alert(` ${result.message}`);
+          console.log(" Buffer réussi:", result.features);
+          
+          // Stocker le résultat pour affichage
+          setCurrentOperation({
+            type: 'buffer',
+            result: result.features,
+            params: { distance: distanceNum }
+          });
+        } else {
+          alert(" Erreur lors du calcul du buffer");
+        }
+        break;
+
+      case 'union':
+        alert("Union (à implémenter avec Turf.js)");
+        console.log(" Union demandée");
+        break;
+
+      case 'intersection':
+        alert("Intersection (à implémenter avec Turf.js)");
+        console.log(" Intersection demandée");
+        break;
+
+      case 'clip':
+        alert("Découpage (à implémenter avec Turf.js)");
+        break;
+
+      case 'merge':
+        alert("Fusion (à implémenter avec Turf.js)");
+        break;
+
+      default:
+        console.log("Action traitement non gérée:", action);
+        alert(`Traitement "${action}" non encore implémenté`);
+    }
+  };
+
+  // Autres catégories (simplifiées)
+  const handleDatabaseActions = (action, details) => {
+    console.log(` Base de données: ${action}`, details);
+  };
+
+  const handleImportActions = (action, details) => {
+    console.log(` Import: ${action}`, details);
+    if (action === 'geojson') {
+      setActiveWidget("import");
+    }
+  };
+
+  const handleExportActions = (action, details) => {
+    console.log(` Export: ${action}`, details);
+  };
+
+  const handleAnalysisActions = (action, details) => {
+    console.log(` Analyse: ${action}`, details);
+  };
+
+  const handleWebActions = (action, details) => {
+    console.log(` Web: ${action}`, details);
+  };
+
+  const handleHelpActions = (action, details) => {
+    console.log(` Aide: ${action}`, details);
+  };
+
+  const handleSettingsActions = (action, details) => {
+    console.log(` Paramètres: ${action}`, details);
+  };
+
+  // ==============================
+  // RENDU DE L'APPLICATION
+  // ==============================
+  
+  const styles = useMemo(() => ({
+    app: {
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      overflow: "hidden",
+      backgroundColor: "#f0f2f5",
+    },
+    mainContent: {
+      display: "flex",
+      flex: 1,
+      overflow: "hidden",
+      position: "relative",
+    },
+    mapContainer: {
+      flex: 1,
+      position: "relative",
+      height: "100%",
+      overflow: "hidden",
+    },
+  }), []);
+
+  const renderMap = () => {
+    const mapProps = { 
+      activeLayers: managedLayers, 
+      baseMapType, 
+      showGrid, 
+      showScale,
+      selectedLayers,
+      setSelectedLayers 
+    };
+    
+    switch (mapViewMode) {
+      case "2D": 
+        return <Map2D {...mapProps} />;
+      case "3D": 
+        return <CesiumMap />;
+      case "canvas": 
+        return <CanvasMap />;
+      default: 
+        return <Map2D {...mapProps} />;
+    }
+  };
+
+  const renderWidget = () => {
+    switch(activeWidget) {
+      case "import":
+        return (
+          <div style={{ 
+            position: "absolute", 
+            top: "80px", 
+            right: "20px", 
+            zIndex: 1000, 
+            width: "300px",
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "8px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+          }}>
+            <h3>Import GeoJSON</h3>
+            <p>Widget d'import activé</p>
+            <p>Utilise le composant GeoJSONImporter ici</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="App" style={styles.app}>
+      {/* Barre de menus JOMA */}
+      <JomaMenuBar 
+        onMenuAction={handleMenuAction}
+        projectStatus={projectStatus}
+        projectName={projectName}
+      />
+      
+      <div style={styles.mainContent}>
+        {/* Panneau des couches */}
+        <LayersPanel 
+          activeLayers={managedLayers}
+          toggleLayer={toggleLayer}
+          selectedLayers={selectedLayers}
+          setSelectedLayers={setSelectedLayers}
+        />
+        
+        <div style={styles.mapContainer}>
+          {/* Barre d'outils professionnelle */}
+          <ProfessionalToolbar
+            mapInstance={mapInstance}
+            onToolSelect={setActiveTool}
+            activeTool={activeTool}
+            onMapViewModeChange={setMapViewMode}
+            mapViewMode={mapViewMode}
+          />
+          
+          {/* Carte */}
+          {renderMap()}
+          
+          {/* Widgets */}
+          {renderWidget()}
+        </div>
+      </div>
+      
+      {/* Barre de statut */}
+      <StatusBar 
+        projectName={projectName}
+        projectStatus={projectStatus}
+        mapViewMode={mapViewMode}
+        activeLayersCount={Object.values(managedLayers).filter(Boolean).length}
+        selectedFeaturesCount={selectedLayers?.flatMap(l => l.features || []).length || 0}
+      />
+    </div>
+  );
+};
+
+// Composant principal de l'application
+function App() {
+  return (
+    <ErrorBoundary>
+      <GeospatialProvider>
+        <MapProvider>
+          <LayerProvider>
+            <AppContent />
+          </LayerProvider>
+        </MapProvider>
+      </GeospatialProvider>
+    </ErrorBoundary>
+  );
+}
+
+export default App;

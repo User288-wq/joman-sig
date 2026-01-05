@@ -1,0 +1,36 @@
+﻿# Arrêter tous les processus Node.js
+taskkill /f /im node.exe 2>$null
+
+# Nettoyer complètement
+Remove-Item -Path "node_modules" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "package-lock.json" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "yarn.lock" -Force -ErrorAction SilentlyContinue
+
+# Recréer package.json
+@'
+{
+  "name": "joma-sig-pro",
+  "version": "2.1.0",
+  "private": true,
+  "dependencies": {
+    "@turf/turf": "^6.5.0",
+    "ol": "^7.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": ["react-app", "react-app/jest"]
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  }
+}
