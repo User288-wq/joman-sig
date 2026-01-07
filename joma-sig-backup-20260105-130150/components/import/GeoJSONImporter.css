@@ -1,0 +1,84 @@
+﻿.geojson-importer {
+  padding: 15px;
+}
+
+.importer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.importer-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.import-methods {
+  display: flex;
+  gap: 10px;
+}
+
+.method-btn {
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.method-btn.active {
+  background: #007bff;
+  color: white;
+}
+
+.drop-zone {
+  border: 2px dashed #adb5bd;
+  border-radius: 10px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  background: #f8f9fa;
+}
+
+.drop-zone.dragging {
+  border-color: #28a745;
+  background: #d4edda;
+}
+
+.drop-icon {
+  font-size: 3rem;
+  color: #6c757d;
+}
+
+.drop-text {
+  margin: 15px 0;
+  color: #495057;
+}
+
+.url-import {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.url-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.url-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+.btn-fetch {
+  padding: 10px 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

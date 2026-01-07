@@ -1,0 +1,12 @@
+{
+  "pyodidePackages": [
+    "numpy",
+    "pandas",
+    "shapely",
+    "geopandas",
+    "scipy",
+    "matplotlib"
+  ],
+  "pythonVersion": "3.10",
+  "memoryLimit": "512MB"
+}

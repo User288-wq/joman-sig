@@ -10,11 +10,13 @@
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #dee2e6;
+  background: white;
 }
 
 .table-header h3 {
   margin: 0;
   font-size: 1.2rem;
+  color: #333;
 }
 
 .table-stats {
@@ -24,14 +26,87 @@
   color: #6c757d;
 }
 
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.search-box {
+  position: relative;
+  width: 300px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-select-all, .btn-export, .btn-print {
+  padding: 8px 16px;
+  border: 1px solid #ced4da;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-select-all {
+  font-size: 1.2rem;
+  padding: 6px 12px;
+}
+
+.btn-select-all:hover, .btn-export:hover, .btn-print:hover {
+  background: #f8f9fa;
+}
+
+.rows-selector {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
 .table-container {
   flex: 1;
   overflow: auto;
+  background: white;
 }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
 .data-table th {
@@ -39,12 +114,27 @@
   padding: 12px;
   text-align: left;
   font-weight: 600;
+  color: #495057;
   border-bottom: 2px solid #dee2e6;
+  cursor: pointer;
+  user-select: none;
+  position: sticky;
+  top: 0;
+}
+
+.data-table th.sortable:hover {
+  background: #e9ecef;
+}
+
+.sort-indicator {
+  margin-left: 5px;
+  color: #007bff;
 }
 
 .data-table td {
   padding: 12px;
   border-bottom: 1px solid #dee2e6;
+  vertical-align: top;
 }
 
 .data-table tbody tr:hover {
@@ -53,4 +143,123 @@
 
 .data-table tbody tr.selected {
   background: #e7f1ff;
+}
+
+.data-table input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.cell-content {
+  cursor: pointer;
+  min-height: 20px;
+}
+
+.cell-content:hover {
+  background: #f0f0f0;
+}
+
+.data-table td input[type="text"] {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  font-style: italic;
+  background: white;
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #f8f9fa;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.selection-info {
+  font-size: 0.9rem;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.table-actions {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: white;
+  border-top: 1px solid #dee2e6;
+}
+
+.btn-zoom-to, .btn-highlight, .btn-statistics {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-zoom-to {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-zoom-to:hover {
+  background: #138496;
+}
+
+.btn-highlight {
+  background: #ffc107;
+  color: black;
+}
+
+.btn-highlight:hover {
+  background: #e0a800;
+}
+
+.btn-statistics {
+  background: #28a745;
+  color: white;
+}
+
+.btn-statistics:hover {
+  background: #218838;
 }

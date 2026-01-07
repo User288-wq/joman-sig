@@ -1,0 +1,163 @@
+/* FileImport.css */
+.file-import-container {
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 12px;
+  border: 1px solid #334155;
+  margin-bottom: 20px;
+}
+
+.formats-list h4 {
+  margin-top: 0;
+  color: #f8fafc;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.formats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.format-item {
+  padding: 10px;
+  background: #0f172a;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  transition: all 0.2s;
+}
+
+.format-item:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.format-name {
+  font-weight: 600;
+  color: #e2e8f0;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.format-extensions {
+  font-size: 11px;
+  color: #94a3b8;
+  font-family: 'Monaco', monospace;
+}
+
+.import-section {
+  text-align: center;
+  border: 2px dashed #475569;
+  border-radius: 12px;
+  padding: 30px;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.import-section:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.file-input-label {
+  cursor: pointer;
+  display: block;
+}
+
+.import-button {
+  font-size: 16px;
+  font-weight: 600;
+  color: #3b82f6;
+  padding: 16px;
+}
+
+.subtext {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+.importing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #334155;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.import-history {
+  margin-top: 20px;
+}
+
+.history-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #0f172a;
+  border-radius: 6px;
+  border-left: 4px solid #3b82f6;
+}
+
+.history-item.error {
+  border-left-color: #ef4444;
+}
+
+.file-name {
+  font-size: 13px;
+  color: #e2e8f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-status {
+  font-size: 12px;
+}
+
+.success-text {
+  color: #10b981;
+}
+
+.error-text {
+  color: #ef4444;
+}
+
+.layers-list {
+  margin-top: 20px;
+}
+
+.layers-list h3 {
+  color: #f8fafc;
+  font-size: 16px;
+  margin-bottom: 12px;
+}

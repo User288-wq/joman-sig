@@ -1,31 +1,24 @@
-﻿import React from 'react';
+﻿import React, { useEffect } from "react";
 
 const CesiumMap = ({ onMapLoad }) => {
-  React.useEffect(() => {
-    if (onMapLoad) {
-      onMapLoad({ type: '3D', status: 'ready' });
-    }
+  useEffect(() => {
+    if (onMapLoad) onMapLoad("cesium");
   }, [onMapLoad]);
 
   return (
-    <div style={{
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
-      color: 'white',
-      fontSize: '24px',
-      textAlign: 'center'
-    }}>
-      <div>
-        <div style={{ fontSize: '48px', marginBottom: '20px' }}></div>
-        <div>Vue 3D Cesium</div>
-        <div style={{ fontSize: '14px', marginTop: '10px', opacity: 0.8 }}>
-          (Ãƒâ‚¬ implÃƒÂ©menter avec CesiumJS)
-        </div>
-      </div>
+    <div
+      style={{
+        flex: 1,
+        width: "100%",
+        height: "100%",
+        background: "linear-gradient(135deg, #000033 0%, #000066 100%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+      }}
+    >
+      <h2>ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â Visualisation Globe 3D (Cesium)</h2>
     </div>
   );
 };

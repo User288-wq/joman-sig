@@ -1,0 +1,109 @@
+﻿.layers-panel {
+  width: 320px;
+  background: white;
+  border-right: 1px solid #ddd;
+  height: 100%;
+}
+
+.panel-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  background: #667eea;
+  color: white;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.layer-count {
+  background: rgba(255,255,255,0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.panel-body {
+  padding: 15px;
+}
+
+.layer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer-item {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.layer-item.visible {
+  border-left: 4px solid #28a745;
+}
+
+.layer-item.hidden {
+  border-left: 4px solid #dc3545;
+  opacity: 0.7;
+}
+
+.layer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.visibility-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.layer-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.layer-type {
+  background: #6c757d;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+}
+
+.layer-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.opacity-slider {
+  flex: 1;
+  height: 4px;
+}
+
+.opacity-value {
+  font-size: 0.8rem;
+  color: #666;
+  min-width: 40px;
+}
+
+.panel-actions {
+  margin-top: 20px;
+}
+
+.btn-add-layer {
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -1,0 +1,34 @@
+﻿{
+  "menu": {
+    "project": "Projet",
+    "file": "Fichier",
+    "edit": "Édition",
+    "view": "Vue",
+    "layers": "Couches",
+    "analysis": "Analyse",
+    "processing": "Traitements",
+    "vector": "Vecteur",
+    "raster": "Raster",
+    "database": "Données",
+    "web": "Web Services",
+    "settings": "Configuration",
+    "help": "Aide"
+  },
+  "status": {
+    "draft": "Brouillon",
+    "active": "Actif",
+    "saved": "Sauvegardé",
+    "error": "Erreur",
+    "scale": "Échelle"
+  },
+  "file": {
+    "title": "�� Gestion de fichiers JOMA",
+    "projectManagement": "Gestion de projet",
+    "importExport": "Import/Export",
+    "newProject": "Nouveau projet",
+    "openProject": "Ouvrir projet..."
+  },
+  "language": {
+    "select": "Sélectionnez la langue"
+  }
+}

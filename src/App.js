@@ -1,4 +1,4 @@
-ï»¿import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./App.css";
 import "ol/ol.css";
 
@@ -22,7 +22,7 @@ import { boundingExtent } from "ol/extent";
 import { getArea, getLength } from "ol/sphere";
 import { LineString, Polygon } from "ol/geom";
 
-// Turf.js pour les opÃ©rations spatiales
+// Turf.js pour les opérations spatiales
 import * as turf from "@turf/turf";
 
 // TopoJSON
@@ -40,12 +40,12 @@ import {
   FaUserCircle, FaBell, FaQuestionCircle, FaExclamationTriangle
 } from 'react-icons/fa';
 
-// Composants UI personnalisÃ©s
+// Composants UI personnalisés
 import Notification from "./components/Notification";
 import LoadingSpinner from "./components/LoadingSpinner";
 import AttributeTable from "./components/AttributeTable";
 
-// Formats supportÃ©s
+// Formats supportés
 const SUPPORTED_FORMATS = [
   { id: "geojson", name: "GeoJSON", extensions: [".json", ".geojson"], icon: "", color: "#4299e1" },
   { id: "shapefile", name: "Shapefile", extensions: [".shp", ".dbf", ".shx"], icon: "", color: "#ed8936" },
@@ -70,16 +70,16 @@ const MAP_STYLES = [
   { id: "topo", name: "Topographique", url: "https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png", icon: "" },
   { id: "satellite", name: "Satellite", url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", icon: "" },
   { id: "dark", name: "Mode Nuit", url: "https://{a-c}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png", icon: "" },
-  { id: "cycle", name: "VÃ©lo", url: "https://{a-c}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", icon: "" }
+  { id: "cycle", name: "Vélo", url: "https://{a-c}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", icon: "" }
 ];
 
 function App() {
-  // RÃ©fÃ©rences
+  // Références
   const mapRef = useRef();
   const popupRef = useRef();
   const fileInputRef = useRef();
   
-  // Ã‰tat principal
+  // État principal
   const [map, setMap] = useState(null);
   const [zoom, setZoom] = useState(10);
   const [center, setCenter] = useState([2.3522, 48.8566]);
@@ -95,7 +95,7 @@ function App() {
   const [drawingMode, setDrawingMode] = useState(null);
   const [measurement, setMeasurement] = useState(null);
   
-  // Ã‰tat avancÃ©
+  // État avancé
   const [notifications, setNotifications] = useState([]);
   const [processingHistory, setProcessingHistory] = useState([]);
   const [attributeData, setAttributeData] = useState([]);
@@ -105,7 +105,7 @@ function App() {
     byType: { point: 0, line: 0, polygon: 0 }
   });
   
-  // RÃ©fÃ©rences OpenLayers
+  // Références OpenLayers
   const selectInteractionRef = useRef(null);
   const drawInteractionRef = useRef(null);
   const measureInteractionRef = useRef(null);
@@ -120,7 +120,7 @@ function App() {
     try {
       console.log(" Initialisation JOMA SIG Pro...");
       
-      // CrÃ©er la carte
+      // Créer la carte
       const newMap = new Map({
         target: mapRef.current,
         layers: [
@@ -172,7 +172,7 @@ function App() {
       });
       newMap.addOverlay(popup);
       
-      // Interaction de sÃ©lection
+      // Interaction de sélection
       const select = new Select({
         condition: click,
         style: new Style({
@@ -209,7 +209,7 @@ function App() {
           popup.setPosition(coordinates);
           
           // Ajouter notification
-          addNotification("info", `EntitÃ© sÃ©lectionnÃ©e: ${props.name || 'Sans nom'}`);
+          addNotification("info", `Entité sélectionnée: ${props.name || 'Sans nom'}`);
         } else {
           setSelectedFeature(null);
           popup.setPosition(undefined);
@@ -219,7 +219,7 @@ function App() {
       newMap.addInteraction(select);
       selectInteractionRef.current = select;
       
-      // Ã‰couteurs d'Ã©vÃ©nements
+      // Écouteurs d'événements
       newMap.getView().on('change:resolution', () => {
         setZoom(newMap.getView().getZoom().toFixed(2));
       });
@@ -229,13 +229,13 @@ function App() {
         setCenter(centerCoords);
       });
       
-      // Gestion plein Ã©cran
+      // Gestion plein écran
       document.addEventListener('fullscreenchange', () => {
         setIsFullscreen(!!document.fullscreenElement);
       });
       
       setMap(newMap);
-      addNotification("success", "Carte JOMA SIG Pro initialisÃ©e avec succÃ¨s !");
+      addNotification("success", "Carte JOMA SIG Pro initialisée avec succès !");
       
     } catch (error) {
       console.error(" Erreur initialisation:", error);
@@ -324,10 +324,10 @@ function App() {
       visible: visible
     });
     
-    // Ajouter Ã  la carte
+    // Ajouter à la carte
     map.addLayer(vectorLayer);
     
-    // CrÃ©er objet layer
+    // Créer objet layer
     const layerObj = {
       id: layerId,
       name: layerName || `Couche ${mapLayers.length + 1}`,
@@ -341,10 +341,10 @@ function App() {
       attributes: features[0]?.properties ? Object.keys(features[0].properties) : []
     };
     
-    // Mettre Ã  jour l'Ã©tat
+    // Mettre à jour l'état
     setMapLayers(prev => [...prev, layerObj]);
     
-    // Mettre Ã  jour les statistiques
+    // Mettre à jour les statistiques
     updateStatistics();
     
     // Ajuster la vue
@@ -357,11 +357,11 @@ function App() {
       });
     }
     
-    // Ajouter Ã  l'historique
-    addToHistory('import', `${features.length} entitÃ©s importÃ©es dans ${layerName}`);
+    // Ajouter à l'historique
+    addToHistory('import', `${features.length} entités importées dans ${layerName}`);
     
     // Notification
-    addNotification("success", `Couche "${layerName}" ajoutÃ©e (${features.length} entitÃ©s)`);
+    addNotification("success", `Couche "${layerName}" ajoutée (${features.length} entités)`);
     
     return layerId;
   }, [map, mapLayers]);
@@ -371,7 +371,7 @@ function App() {
     if (layer && layer.layer) {
       map.removeLayer(layer.layer);
       setMapLayers(prev => prev.filter(l => l.id !== layerId));
-      addNotification("info", `Couche "${layer.name}" supprimÃ©e`);
+      addNotification("info", `Couche "${layer.name}" supprimée`);
       updateStatistics();
     }
   };
@@ -409,7 +409,7 @@ function App() {
       addNotification("info", `Import ${format.name} en cours...`);
       
       try {
-        // Simuler l'import (Ã  remplacer par la vraie logique)
+        // Simuler l'import (à remplacer par la vraie logique)
         const mockFeatures = generateMockFeatures(50, format.id);
         const layerName = `${format.name} - ${files[0].name}`;
         
@@ -437,13 +437,13 @@ function App() {
       return;
     }
     
-    // DÃ©sactiver les autres interactions
+    // Désactiver les autres interactions
     deactivateDrawingTool();
     
     setDrawingMode(type);
     addNotification("info", `Mode dessin: ${type}`);
     
-    // CrÃ©er l'interaction de dessin
+    // Créer l'interaction de dessin
     const draw = new Draw({
       source: vectorSourceRef.current,
       type: type,
@@ -471,7 +471,7 @@ function App() {
       const length = geometry.getType() === 'LineString' ? getLength(geometry) : null;
       
       addNotification("success", 
-        `Dessin terminÃ©: ${geometry.getType()} ${area ? `(${(area/10000).toFixed(2)} ha)` : ''}`
+        `Dessin terminé: ${geometry.getType()} ${area ? `(${(area/10000).toFixed(2)} ha)` : ''}`
       );
       
       // Ajouter aux couches
@@ -578,15 +578,15 @@ function App() {
   };
   
   // ====================
-  // OPÃ‰RATIONS SPATIALES
+  // OPÉRATIONS SPATIALES
   // ====================
   const handleBuffer = () => {
     if (!selectedFeature) {
-      addNotification("warning", "SÃ©lectionnez d'abord une entitÃ©");
+      addNotification("warning", "Sélectionnez d'abord une entité");
       return;
     }
     
-    const distance = prompt("Distance du buffer (mÃ¨tres):", "100");
+    const distance = prompt("Distance du buffer (mètres):", "100");
     if (!distance || isNaN(distance)) return;
     
     setIsLoading(true);
@@ -596,7 +596,7 @@ function App() {
       const mockBuffer = generateMockFeatures(10, 'buffer');
       addLayerToMap(mockBuffer, `Buffer ${distance}m`, { color: '#ed8936' });
       
-      addToHistory('buffer', `Buffer de ${distance}m appliquÃ©`);
+      addToHistory('buffer', `Buffer de ${distance}m appliqué`);
       setIsLoading(false);
     }, 1000);
   };
@@ -706,7 +706,7 @@ function App() {
   };
   
   const exportData = (format = 'geojson') => {
-    // Exporter les donnÃ©es
+    // Exporter les données
     const data = {
       type: 'FeatureCollection',
       features: []
@@ -733,7 +733,7 @@ function App() {
     link.href = dataUri;
     link.click();
     
-    addNotification("success", "DonnÃ©es exportÃ©es en GeoJSON");
+    addNotification("success", "Données exportées en GeoJSON");
   };
   
   // ====================
@@ -754,7 +754,7 @@ function App() {
             {notification.type === 'success' && ' '}
             {notification.type === 'error' && ' '}
             {notification.type === 'warning' && ' '}
-            {notification.type === 'info' && 'â„¹ '}
+            {notification.type === 'info' && '? '}
             {notification.message}
           </div>
         ))}
@@ -767,7 +767,7 @@ function App() {
             <FaGlobe size={28} style={{ marginRight: 12 }} />
             <div>
               <h1 style={styles.title}>JOMA SIG Pro</h1>
-              <div style={styles.subtitle}>SystÃ¨me d'Information GÃ©ographique Professionnel</div>
+              <div style={styles.subtitle}>Système d'Information Géographique Professionnel</div>
             </div>
           </div>
         </div>
@@ -777,7 +777,7 @@ function App() {
             <FaSearch size={16} style={styles.searchIcon} />
             <input
               type="text"
-              placeholder="Rechercher une adresse, une parcelle, une coordonnÃ©e..."
+              placeholder="Rechercher une adresse, une parcelle, une coordonnée..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={styles.searchInput}
@@ -813,7 +813,7 @@ function App() {
           <button 
             style={styles.toolbarButton}
             onClick={handleFileImport}
-            title="Importer des donnÃ©es"
+            title="Importer des données"
           >
             <FaCloudUploadAlt style={{ marginRight: 8 }} />
             Importer
@@ -834,7 +834,7 @@ function App() {
           <button 
             style={{...styles.toolbarButton, background: '#38a169'}}
             onClick={() => exportData()}
-            title="Exporter les donnÃ©es"
+            title="Exporter les données"
           >
             <FaDownload style={{ marginRight: 8 }} />
             Exporter
@@ -885,7 +885,7 @@ function App() {
           <button 
             style={styles.toolbarButton}
             onClick={handleBuffer}
-            title="CrÃ©er un buffer"
+            title="Créer un buffer"
           >
             <FaBuffer style={{ marginRight: 8 }} />
             Buffer
@@ -924,7 +924,7 @@ function App() {
           <button 
             style={styles.toolbarButton}
             onClick={toggleFullscreen}
-            title="Plein Ã©cran"
+            title="Plein écran"
           >
             {isFullscreen ? <FaCompress /> : <FaExpand />}
           </button>
@@ -941,14 +941,14 @@ function App() {
       
       {/* Contenu principal */}
       <div style={styles.mainContent}>
-        {/* Panneau latÃ©ral */}
+        {/* Panneau latéral */}
         {showLayerPanel && (
           <div style={styles.sidePanel}>
             {/* Tabs */}
             <div style={styles.tabs}>
               {[
                 { id: 'layers', label: 'Couches', icon: <FaLayerGroup /> },
-                { id: 'data', label: 'DonnÃ©es', icon: <FaDatabase /> },
+                { id: 'data', label: 'Données', icon: <FaDatabase /> },
                 { id: 'history', label: 'Historique', icon: <FaHistory /> },
                 { id: 'styles', label: 'Styles', icon: <FaPalette /> },
                 { id: 'tools', label: 'Outils', icon: <FaTools /> }
@@ -1006,7 +1006,7 @@ function App() {
                           <div style={{ flex: 1 }}>
                             <div style={{ fontWeight: 'bold' }}>{layer.name}</div>
                             <div style={{ fontSize: 12, opacity: 0.7 }}>
-                              {layer.featureCount} entitÃ©s  {layer.featureTypes?.point || 0}P, {layer.featureTypes?.line || 0}L, {layer.featureTypes?.polygon || 0}Z
+                              {layer.featureCount} entités  {layer.featureTypes?.point || 0}P, {layer.featureTypes?.line || 0}L, {layer.featureTypes?.polygon || 0}Z
                             </div>
                           </div>
                           <button 
@@ -1037,7 +1037,7 @@ function App() {
                         <div style={{ fontSize: 48, opacity: 0.3 }}></div>
                         <div style={{ marginTop: 10 }}>Aucune couche</div>
                         <div style={{ fontSize: 12, opacity: 0.7 }}>
-                          Importez ou dessinez des donnÃ©es
+                          Importez ou dessinez des données
                         </div>
                       </div>
                     )}
@@ -1045,7 +1045,7 @@ function App() {
                 </div>
               )}
               
-              {/* Tab DonnÃ©es */}
+              {/* Tab Données */}
               {activeTab === 'data' && (
                 <div>
                   <div style={styles.sectionHeader}>
@@ -1055,7 +1055,7 @@ function App() {
                   <div style={styles.statsGrid}>
                     <div style={styles.statCard}>
                       <div style={styles.statValue}>{statistics.totalFeatures}</div>
-                      <div style={styles.statLabel}>EntitÃ©s totales</div>
+                      <div style={styles.statLabel}>Entités totales</div>
                     </div>
                     <div style={styles.statCard}>
                       <div style={styles.statValue}>{statistics.totalLayers}</div>
@@ -1077,7 +1077,7 @@ function App() {
                   
                   {selectedFeature && (
                     <div style={styles.featurePanel}>
-                      <h4 style={styles.featureTitle}> EntitÃ© sÃ©lectionnÃ©e</h4>
+                      <h4 style={styles.featureTitle}> Entité sélectionnée</h4>
                       <div style={styles.featureDetails}>
                         <div style={styles.featureRow}>
                           <span style={styles.featureLabel}>Type:</span>
@@ -1168,13 +1168,13 @@ function App() {
                   </div>
                   
                   <div style={styles.styleSettings}>
-                    <h4 style={styles.settingsTitle}> ParamÃ¨tres</h4>
+                    <h4 style={styles.settingsTitle}> Paramètres</h4>
                     <div style={styles.settingItem}>
                       <label style={styles.settingLabel}>Transparence</label>
                       <input type="range" min="0" max="100" defaultValue="100" style={styles.slider} />
                     </div>
                     <div style={styles.settingItem}>
-                      <label style={styles.settingLabel}>Ã‰paisseur</label>
+                      <label style={styles.settingLabel}>Épaisseur</label>
                       <input type="range" min="1" max="10" defaultValue="2" style={styles.slider} />
                     </div>
                   </div>
@@ -1185,18 +1185,18 @@ function App() {
               {activeTab === 'tools' && (
                 <div>
                   <div style={styles.sectionHeader}>
-                    <h3 style={styles.sectionTitle}> Outils avancÃ©s</h3>
+                    <h3 style={styles.sectionTitle}> Outils avancés</h3>
                   </div>
                   
                   <div style={styles.toolsGrid}>
                     {[
-                      { icon: '', name: 'GÃ©ocodage', color: '#4299e1' },
-                      { icon: '', name: 'GÃ©orÃ©fÃ©rencement', color: '#48bb78' },
+                      { icon: '', name: 'Géocodage', color: '#4299e1' },
+                      { icon: '', name: 'Géoréférencement', color: '#48bb78' },
                       { icon: '', name: 'Statistiques', color: '#ed8936' },
-                      { icon: '', name: 'RequÃªte spatiale', color: '#9f7aea' },
+                      { icon: '', name: 'Requête spatiale', color: '#9f7aea' },
                       { icon: '', name: 'Graphiques', color: '#f687b3' },
                       { icon: '', name: 'Reprojection', color: '#4fd1c7' },
-                      { icon: '', name: 'DÃ©coupage', color: '#d53f8c' },
+                      { icon: '', name: 'Découpage', color: '#d53f8c' },
                       { icon: '', name: 'Fusion', color: '#667eea' }
                     ].map(tool => (
                       <div key={tool.name} style={styles.toolCard}>
@@ -1217,7 +1217,7 @@ function App() {
         <div style={styles.mapContainer}>
           <div ref={mapRef} style={styles.map} />
           
-          {/* ContrÃ´les carte */}
+          {/* Contrôles carte */}
           <div style={styles.mapControls}>
             <button 
               style={styles.mapControlButton}
@@ -1229,14 +1229,14 @@ function App() {
             <button 
               style={styles.mapControlButton}
               onClick={() => map?.getView().setZoom(map.getView().getZoom() - 1)}
-              title="Zoom arriÃ¨re"
+              title="Zoom arrière"
             >
               -
             </button>
             <button 
               style={styles.mapControlButton}
               onClick={() => map?.getView().setZoom(10)}
-              title="Zoom par dÃ©faut"
+              title="Zoom par défaut"
             >
               
             </button>
@@ -1252,13 +1252,13 @@ function App() {
                   }
                 }
               }}
-              title="Ajuster Ã  toutes les couches"
+              title="Ajuster à toutes les couches"
             >
               
             </button>
           </div>
           
-          {/* CoordonnÃ©es */}
+          {/* Coordonnées */}
           <div style={styles.coordinates}>
             {center[0].toFixed(4)}, {center[1].toFixed(4)}  Zoom: {zoom}x
           </div>
@@ -1267,21 +1267,21 @@ function App() {
           <div ref={popupRef} style={styles.popup}>
             {selectedFeature && (
               <div style={styles.popupContent}>
-                <strong>{selectedFeature.properties?.name || 'EntitÃ©'}</strong>
+                <strong>{selectedFeature.properties?.name || 'Entité'}</strong>
                 <div style={{ fontSize: 12 }}>{selectedFeature.geometry}</div>
               </div>
             )}
           </div>
           
-          {/* Ã‰cran d'accueil */}
+          {/* Écran d'accueil */}
           {mapLayers.length === 0 && !isLoading && (
             <div style={styles.welcomeOverlay}>
               <div style={styles.welcomeCard}>
                 <div style={{ fontSize: 64, marginBottom: 20 }}></div>
                 <h2 style={styles.welcomeTitle}>Bienvenue sur JOMA SIG Pro</h2>
                 <p style={styles.welcomeText}>
-                  SystÃ¨me d'Information GÃ©ographique professionnel<br/>
-                  avec support pour 15 formats de donnÃ©es
+                  Système d'Information Géographique professionnel<br/>
+                  avec support pour 15 formats de données
                 </p>
                 
                 <div style={styles.welcomeActions}>
@@ -1309,11 +1309,11 @@ function App() {
                   </div>
                   <div style={styles.tip}>
                     <FaDrawPolygon size={14} />
-                    <span>Cliquez sur les outils de dessin pour crÃ©er des formes</span>
+                    <span>Cliquez sur les outils de dessin pour créer des formes</span>
                   </div>
                   <div style={styles.tip}>
                     <FaBuffer size={14} />
-                    <span>Utilisez les outils d'analyse pour traiter vos donnÃ©es</span>
+                    <span>Utilisez les outils d'analyse pour traiter vos données</span>
                   </div>
                 </div>
               </div>
@@ -1327,7 +1327,7 @@ function App() {
         <div style={styles.statusLeft}>
           <div style={styles.statusItem}>
             <FaMap style={{ marginRight: 8 }} />
-            {statistics.totalLayers} couches  {statistics.totalFeatures} entitÃ©s
+            {statistics.totalLayers} couches  {statistics.totalFeatures} entités
           </div>
           <div style={styles.statusItem}>
             <FaExclamationTriangle style={{ marginRight: 8 }} />
@@ -1337,7 +1337,7 @@ function App() {
         
         <div style={styles.statusCenter}>
           <div style={styles.statusMessage}>
-            {isLoading ? ' Traitement en cours...' : ' SystÃ¨me prÃªt'}
+            {isLoading ? ' Traitement en cours...' : ' Système prêt'}
           </div>
         </div>
         
@@ -2192,3 +2192,6 @@ styleSheet.textContent = `
 document.head.appendChild(styleSheet);
 
 export default App;
+
+
+
